@@ -87,9 +87,12 @@ def train_model():
     os.makedirs(models_dir, exist_ok=True)
     
     torch.save(model.state_dict(), os.path.join(models_dir, "sentixnet_model.pth"))
-    # In a real project, you'd save the scalers too (using joblib or pickle)
     
-    print("Training complete. Model saved.")
+    import joblib
+    joblib.dump(scaler_X, os.path.join(models_dir, "scaler_X.joblib"))
+    joblib.dump(scaler_y, os.path.join(models_dir, "scaler_y.joblib"))
+    
+    print("Training complete. Model and scalers saved.")
     
     # 6. Plot Training History
     plt.figure(figsize=(10, 5))
